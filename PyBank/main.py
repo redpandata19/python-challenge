@@ -1,21 +1,25 @@
 import os
 import csv
 
+# setting path to source data
 pybank_data = os.path.join("Resources", "budget_data.csv")
 
+# empty lists for storage later
 months = []
 profit_loss = []
 changes = []
 
+# opening pybank resource 
 with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
+# storing the header row
     csv_header = next(csv_reader)
     
 # appending the dates to the list 
     for row in csv_reader:
         months.append(row[0]) 
 
-# # re-opening and moving past headers to iterate through rows again
+# re-opening and moving past headers to iterate through rows again
 with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")  
     next(csv_reader) 
@@ -66,10 +70,11 @@ with open(pybank_data) as csv_file:
             if change_amount < 0 and change_abs > decrease_abs:
                 greatest_decrease['date'] = current_date
                 greatest_decrease['decrease'] = change_amount
+        # setup for next iteration        
         prev_amount = current_amount
     
 
-# print to console
+# print results to console
 print('Financial Analysis')
 print('')
 print('----------------------------------------------')
@@ -84,7 +89,7 @@ print(f'Greatest Increase in Profits: {greatest_increase["date"]} (${greatest_in
 print('')
 print(f'Greatest Decrease in Profits: {greatest_decrease["date"]} (${greatest_decrease["decrease"]})')
 
-# Export as text file
+# Export results as text file
 analysis_txt = 'Financial_Analysis.txt'
 analysis_path = os.path.join("analysis","Financial_Analysis.txt")
 
