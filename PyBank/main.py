@@ -81,7 +81,7 @@ print(f'Total: ${net_profit_loss}')
 print('')
 print(f'Average Change: ${avg_change}')
 print('')
-print(f'Greatest Increase in Profits: {greatest_increase}')
+print(f'Greatest Increase in Profits: {greatest_increase["date"]} ({greatest_increase["increase"]})')
 print('')
 # print(f'Greatest Decrease in Profits: {greatest_decrease}')
 
