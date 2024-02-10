@@ -58,9 +58,8 @@ with open(pybank_data) as csv_file:
         # Need to compare change_abs to absolute value of previous increase
             increase_abs = abs(greatest_increase['increase'])
             decrease_abs = abs(greatest_decrease['decrease'])
-        # and update the dictionary if the change_abs is greater inrease_abs
-        # two ifs: it is greater than, it is less than
-            # actually only need the second one if I wanted to combine greatest and least decrease?
+        # and update the dictionary if the change_abs is greater increase_abs
+        # two ifs: both greater than for abs comparison, but need > 0 and < 0 to indicate sign of change
             if change_amount > 0 and change_abs > increase_abs:
                 greatest_increase['date'] = current_date
                 greatest_increase['increase'] = change_amount
@@ -69,14 +68,8 @@ with open(pybank_data) as csv_file:
                 greatest_decrease['decrease'] = change_amount
         prev_amount = current_amount
     
-# greatest decrease in profits (date and amount) over the entire period
-    # greatest_decrease = 0
-    # for h in change: 
 
-
-
-# EXPORT A TEXT FILE!!!!!!!!!!!!!!!!!!!!!!!
-
+# print to console
 print('Financial Analysis')
 print('')
 print('----------------------------------------------')
@@ -91,4 +84,21 @@ print(f'Greatest Increase in Profits: {greatest_increase["date"]} (${greatest_in
 print('')
 print(f'Greatest Decrease in Profits: {greatest_decrease["date"]} (${greatest_decrease["decrease"]})')
 
-# EXPORT A TEXT FILE!!!!!!!!!!!!!!!!!!!!!!!
+# Export as text file
+analysis_txt = 'Financial_Analysis.txt'
+analysis_path = os.path.join("analysis","Financial_Analysis.txt")
+
+with open(analysis_path, 'w') as analysis_txt:
+    print('Financial Analysis', file=analysis_txt)
+    print('', file=analysis_txt)
+    print('----------------------------------------------', file=analysis_txt)
+    print('', file=analysis_txt)
+    print(f'Total Months: {len(months)}', file=analysis_txt)
+    print('', file=analysis_txt)
+    print(f'Total: ${net_profit_loss}', file=analysis_txt)
+    print('', file=analysis_txt)
+    print(f'Average Change: ${avg_change}', file=analysis_txt)
+    print('', file=analysis_txt)
+    print(f'Greatest Increase in Profits: {greatest_increase["date"]} (${greatest_increase["increase"]})', file=analysis_txt)
+    print('', file=analysis_txt)
+    print(f'Greatest Decrease in Profits: {greatest_decrease["date"]} (${greatest_decrease["decrease"]})', file=analysis_txt)
