@@ -10,7 +10,6 @@ changes = []
 with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
-    print(f"Header: {csv_header}")
     
 # appending the dates to the list 
     for row in csv_reader:
@@ -19,7 +18,7 @@ with open(pybank_data) as csv_file:
 # # re-opening and moving past headers to iterate through rows again
 with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")  
-    csv_header = next(csv_reader) 
+    next(csv_reader) 
 
 # appending profits/losses to a list and summing
     for row in csv_reader:
@@ -38,11 +37,14 @@ with open(pybank_data) as csv_file:
 # reopen the CSV bc need both date and value, can't use profit_loss
 with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")  
-    csv_header = next(csv_reader)
+    next(csv_reader)
 #dictionary for great_increase to include both a date and a time
     greatest_increase = {'date': 'none',
                         'increase': int(0)
     }
+# dictionary for greatest_decrease 
+    greatest_decrease = {'date': 'none',
+                         'decrease': int(0) }    
 # Need to distinguish between no change and prev_amount being undefined
     prev_amount = 'none'
     for row in csv_reader:
@@ -55,12 +57,16 @@ with open(pybank_data) as csv_file:
             change_abs = abs(change_amount)
         # Need to compare change_abs to absolute value of previous increase
             increase_abs = abs(greatest_increase['increase'])
+            decrease_abs = abs(greatest_decrease['decrease'])
         # and update the dictionary if the change_abs is greater inrease_abs
         # two ifs: it is greater than, it is less than
             # actually only need the second one if I wanted to combine greatest and least decrease?
-            if change_abs > increase_abs:
+            if change_amount > 0 and change_abs > increase_abs:
                 greatest_increase['date'] = current_date
                 greatest_increase['increase'] = change_amount
+            if change_amount < 0 and change_abs > decrease_abs:
+                greatest_decrease['date'] = current_date
+                greatest_decrease['decrease'] = change_amount
         prev_amount = current_amount
     
 # greatest decrease in profits (date and amount) over the entire period
@@ -83,6 +89,6 @@ print(f'Average Change: ${avg_change}')
 print('')
 print(f'Greatest Increase in Profits: {greatest_increase["date"]} (${greatest_increase["increase"]})')
 print('')
-# print(f'Greatest Decrease in Profits: {greatest_decrease}')
+print(f'Greatest Decrease in Profits: {greatest_decrease["date"]} (${greatest_decrease["decrease"]})')
 
 # EXPORT A TEXT FILE!!!!!!!!!!!!!!!!!!!!!!!
