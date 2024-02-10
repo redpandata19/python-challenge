@@ -61,7 +61,7 @@ with open(pybank_data) as csv_file:
             if change_abs > increase_abs:
                 greatest_increase['date'] = current_date
                 greatest_increase['increase'] = change_amount
-    prev_amount = current_amount
+        prev_amount = current_amount
     
 # greatest decrease in profits (date and amount) over the entire period
     # greatest_decrease = 0
@@ -81,7 +81,7 @@ print(f'Total: ${net_profit_loss}')
 print('')
 print(f'Average Change: ${avg_change}')
 print('')
-print(f'Greatest Increase in Profits: {greatest_increase["date"]} ({greatest_increase["increase"]})')
+print(f'Greatest Increase in Profits: {greatest_increase["date"]} (${greatest_increase["increase"]})')
 print('')
 # print(f'Greatest Decrease in Profits: {greatest_decrease}')
 
