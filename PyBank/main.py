@@ -40,24 +40,31 @@ with open(pybank_data) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")  
     csv_header = next(csv_reader)
 #dictionary for great_increase to include both a date and a time
-    greatest_increase = {'date':none,
+    greatest_increase = {'date': 'none',
                         'increase': int(0)
     }
-
-    for j in range(1, len(profit_loss)):
-        # setup iterative variables
-        current_date, current_amount = rows[j]
-        prev_date, prev_amount = rows[j - 1]
+# Need to distinguish between no change and prev_amount being undefined
+    prev_amount = 'none'
+    for row in csv_reader:
+    # setup iterative variables
+        current_date, current_amount = row
+        if prev_amount is not None:
         # calculation from those variable to get change
+            change_amount = int((current_amount) - (prev_amount))
         # the change should be the absolute value for comparison
-        change_amount = int((current_amount) - (prev_amount))
-        change_abs = abs(change_amount)
-        # setup initial variables to go in the greatest_increase dictionary
-        greatest_increase['date'] = current_date
-        greatest_increase['increase'] = change_amount
-        # Need to compare the the increase stored in the dictionary 
-        # to the calculated change_amount
-        # and update the dictionary if the change amount is greater
+            change_abs = abs(change_amount)
+        # Need to compare change_abs to absolute value of previous increase
+            increase_abs = abs(greatest_increase['increase'])
+        # and update the dictionary if the change_abs is greater inrease_abs
+        # two ifs: it is greater than, it is less than
+            if change_abs > increase_abs:
+            greatest_increase['date'] = current_date
+            greatest_increase['increase'] = change_amount
+
+
+    prev_amount = current_amount
+
+
 
 
     
