@@ -3,14 +3,14 @@ import os
 import csv
 
 # Path to data
-PyPoll_csv = os.path.join("Resources", "election_data.csv")
+pypoll_csv = os.path.join("Resources", "election_data.csv")
 
 # Empty list(s)
 candidate_list = []
 candidate_votes = []
 
 # Read in csv data and save header data
-with open(PyPoll_csv) as csv_file:
+with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
 # For each row:
@@ -21,16 +21,23 @@ with open(PyPoll_csv) as csv_file:
         candidate = row[2]
         if candidate not in candidate_list:
             candidate_list.append(candidate)
-# Can I do this with list comprehension?
+
+# I can print the candidates and see that there are only 3
+# print(candidate_list)
+# ['Charles Casper Stockham', 'Diana DeGette', 'Raymon Anthony Doane']
+
+# Do I utilize the created list to create individual lists for each candidate?
+    # Seems like that is a way to do it, but would require manual intervention every time a candidate were to change
+    # There should be a way to do this without manually intervention
+
 
 # Determine who the vote belongs to with a dictionary
 candidate_votes = {'Candidate': candidate_votes}
 candidate_votes['Candidate'] = candidate_list
 # re-open CSV to iterate through once more
-with open(PyPoll_csv) as csv_file:
+with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
-
 
 # Calculate percentage of votes per candidate
     # Idea: len each list? Get a total?
