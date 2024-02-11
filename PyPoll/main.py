@@ -7,6 +7,7 @@ PyPoll_csv = os.path.join("Resources", "election_data.csv")
 
 # Empty list(s)
 candidate_list = []
+candidate_votes = []
 
 # Read in csv data and save header data
 with open(PyPoll_csv) as csv_file:
@@ -20,11 +21,16 @@ with open(PyPoll_csv) as csv_file:
         candidate = row[2]
         if candidate not in candidate_list:
             candidate_list.append(candidate)
-print(candidate_list)
+# Can I do this with list comprehension?
 
-# Determine who the vote belongs to
-# candidates_dict = {"Cand1_Name": 'none',
-#                    "cand2"}
+# Determine who the vote belongs to with a dictionary
+candidate_votes = {'Candidate': candidate_votes}
+candidate_votes['Candidate'] = candidate_list
+# re-open CSV to iterate through once more
+with open(PyPoll_csv) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+    csv_header = next(csv_reader)
+
 
 # Calculate percentage of votes per candidate
     # Idea: len each list? Get a total?
