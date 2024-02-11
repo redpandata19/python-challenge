@@ -7,7 +7,6 @@ pypoll_csv = os.path.join("Resources", "election_data.csv")
 
 # Empty list(s)
 candidate_list = []
-candidate_votes = []
 
 # Read in csv data and save header data
 with open(pypoll_csv) as csv_file:
@@ -18,9 +17,9 @@ with open(pypoll_csv) as csv_file:
     # Need to append to dictionary?
     # Perhaps I need a list of candidates before I can make a dictionary for them?
     for row in csv_reader:
-        candidate = row[2]
-        if candidate not in candidate_list:
-            candidate_list.append(candidate)
+        candidate_value = row[2]
+        if candidate_value not in candidate_list:
+            candidate_list.append(candidate_value)
 
 # I can print the candidates and see that there are only 3
 # print(candidate_list)
@@ -30,10 +29,10 @@ with open(pypoll_csv) as csv_file:
     # Seems like that is a way to do it, but would require manual intervention every time a candidate were to change
     # There should be a way to do this without manually intervention
 
+# Determine who the vote belongs to with a dictionary (dictionary comprehension)
+candidate_votes = {candidate: [] for candidate in candidate_list}
+print(candidate_votes)
 
-# Determine who the vote belongs to with a dictionary
-candidate_votes = {'Candidate': candidate_votes}
-candidate_votes['Candidate'] = candidate_list
 # re-open CSV to iterate through once more
 with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
