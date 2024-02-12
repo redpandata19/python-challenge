@@ -21,22 +21,20 @@ with open(pypoll_csv) as csv_file:
         if candidate_value not in candidate_list:
             candidate_list.append(candidate_value)
 
-# I can print the candidates and see that there are only 3
-# print(candidate_list)
-# ['Charles Casper Stockham', 'Diana DeGette', 'Raymon Anthony Doane']
-
-# Do I utilize the created list to create individual lists for each candidate?
-    # Seems like that is a way to do it, but would require manual intervention every time a candidate were to change
-    # There should be a way to do this without manually intervention
-
 # Determine who the vote belongs to with a dictionary (dictionary comprehension)
 candidate_votes = {candidate: [] for candidate in candidate_list}
-print(candidate_votes)
-
 # re-open CSV to iterate through once more
 with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
+
+# iterate through rows and add votes to the relevant candidate's list in the dictionary
+    for vote in csv_reader:
+# Record voter_id to the relevant candidate's list in the dictionary
+        vote_id = row[0]
+        candidate_votes[candidate].append(vote_id)
+
+
 
 # Calculate percentage of votes per candidate
     # Idea: len each list? Get a total?
