@@ -43,17 +43,11 @@ total_votes = sum(total_votes_per.values())
 percentage_votes = {candidate: ((tally / total_votes) * 100) for candidate, tally in total_votes_per.items()}
 # round each percentage to 3 decimal places
 rounded_percents = {candidate: round(perc_vote,3) for candidate, perc_vote in percentage_votes.items()}
-print(rounded_percents)
-
-# create a dataframe? :/ that's pandas which is technically after this homework
-# combine dictionaries?
+# combine dictionaries and store data as a touple for easy printing
 combined_data = {candidate: (rounded_percents[candidate], total_votes_per[candidate]) for candidate in candidate_votes}
 
-print(combined_data)
-
-
 # Winner of election based on popular vote
-
+winner = max(rounded_percents, key=rounded_percents.get)
 
 # print results to console
 print('')
@@ -65,36 +59,37 @@ print(f'Total Votes: {total_votes}')
 print('')
 print('------------------------------------------')
 print('')
+# unpack the touple from the combined dictionary
 for candidate,data in combined_data.items():
         percentage,tally = data
         print(f'{candidate}: {percentage}% ({tally})')
 print('')
 print('------------------------------------------')
 print('')
-print('Winner:<pop.vote_winner>')
+print(f'Winner: {winner}')
 print('')
 print('------------------------------------------')
 
-# # Export results as text file
-# elect_txt = 'Election_Results.txt'
-# analysis_path = os.path.join("analysis","Election_Results.txt")
+# Export results as text file
+elect_txt = 'Election_Results.txt'
+analysis_path = os.path.join("analysis","Election_Results.txt")
 
-# with open(analysis_path, 'w') as elect_txt:
-#     print('', file=elect_txt)
-#     print('Election Results', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('------------------------------------------', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('Total Votes:', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('------------------------------------------', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('cand1results', file=elect_txt)
-#     print('cand2results', file=elect_txt)
-#     print('cand3results', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('------------------------------------------', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('Winner:<pop.vote_winner>', file=elect_txt)
-#     print('', file=elect_txt)
-#     print('------------------------------------------', file=elect_txt)
+with open(analysis_path, 'w') as elect_txt:
+    print('', file=elect_txt)
+    print('Election Results', file=elect_txt)
+    print('', file=elect_txt)
+    print('------------------------------------------', file=elect_txt)
+    print('', file=elect_txt)
+    print(f'Total Votes: {total_votes}', file=elect_txt)
+    print('', file=elect_txt)
+    print('------------------------------------------', file=elect_txt)
+    print('', file=elect_txt)
+    for candidate,data in combined_data.items():
+        percentage,tally = data
+        print(f'{candidate}: {percentage}% ({tally})', file=elect_txt)
+    print('', file=elect_txt)
+    print('------------------------------------------', file=elect_txt)
+    print('', file=elect_txt)
+    print(f'Winner: {winner}', file=elect_txt)
+    print('', file=elect_txt)
+    print('------------------------------------------', file=elect_txt)
