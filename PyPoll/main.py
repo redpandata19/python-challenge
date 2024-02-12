@@ -46,7 +46,10 @@ rounded_percents = {candidate: round(perc_vote,3) for candidate, perc_vote in pe
 print(rounded_percents)
 
 # create a dataframe? :/ that's pandas which is technically after this homework
-# vote_results_pf = pd.DataFrame{}
+# combine dictionaries?
+combined_data = {candidate: (rounded_percents[candidate], total_votes_per[candidate]) for candidate in candidate_votes}
+
+print(combined_data)
 
 
 # Winner of election based on popular vote
@@ -62,9 +65,9 @@ print(f'Total Votes: {total_votes}')
 print('')
 print('------------------------------------------')
 print('')
-for candidate, tallied_vote in total_votes_per.items():
-    for candidate1, percentage in percentage_votes.items():
-        print(f'{candidate}: {percentage} ({tallied_vote})')
+for candidate,data in combined_data.items():
+        percentage,tally = data
+        print(f'{candidate}: {percentage}% ({tally})')
 print('')
 print('------------------------------------------')
 print('')
