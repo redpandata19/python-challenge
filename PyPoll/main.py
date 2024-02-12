@@ -35,13 +35,15 @@ with open(pypoll_csv) as csv_file:
 # Record Ballot ID to the relevant candidate's list in the dictionary
         if candidate_value in candidate_votes: 
             candidate_votes[candidate_value].append(vote_id)
-# Count the vote results for each candidate
-for candidate, votes in candidate_votes.items():
-    print(f'{candidate}: {len(votes)} votes')
 
+# New dictionary to store vote count totals per candidate
+        total_votes_per = {candidate: [] for candidate in candidate_list}
+# Count the vote results for each candidate
+        for candidate, votes in candidate_votes.items():
+            total_votes_per[candidate].append(len(votes))
+print(total_votes_per)
 # Calculate percentage of votes per candidate
-    # Idea: len each list? Get a total?
-    # Is there an activity close to this?
+
 # Winner of election based on popular vote
 
 
