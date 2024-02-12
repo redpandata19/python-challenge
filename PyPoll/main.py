@@ -12,18 +12,16 @@ candidate_list = []
 with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
-# For each row:
-# Count each vote
-    # Need to append to dictionary?
-    # Perhaps I need a list of candidates before I can make a dictionary for them?
+# iterate through each row of the CSV and add unique candidates to the candidate list
     for row in csv_reader:
         candidate_value = row[2]
         if candidate_value not in candidate_list:
             candidate_list.append(candidate_value)
 
-# Determine who the vote belongs to with a dictionary (dictionary comprehension)
+# Determine who the vote belongs to with a dictionary
+# (dictionary comprehension)
 candidate_votes = {candidate: [] for candidate in candidate_list}
-# re-open CSV to iterate through once more
+# open CSV
 with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
@@ -36,14 +34,12 @@ with open(pypoll_csv) as csv_file:
         if candidate_value in candidate_votes: 
             candidate_votes[candidate_value].append(vote_id)
 
-# New dictionary to store vote count totals per candidate
-        total_votes_per = {candidate: [] for candidate in candidate_list}
-# Count the vote results for each candidate
-        for candidate, votes in candidate_votes.items():
-            total_votes_per[candidate].append(len(votes))
-print(total_votes_per)
 # Calculate percentage of votes per candidate
-
+# Tally the vote
+total_votes_per = {candidate: len(votes) for candidate, votes in candidate_votes.items()}
+# sum the tallied votes
+total_votes = sum(total_votes_per.values())
+print(total_votes)
 # Winner of election based on popular vote
 
 
