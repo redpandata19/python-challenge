@@ -41,31 +41,36 @@ total_votes_per = {candidate: len(votes) for candidate, votes in candidate_votes
 total_votes = sum(total_votes_per.values())
 # for each candidate, divide the tallied vote by the total votes * 100 for percentage
 percentage_votes = {candidate: ((tally / total_votes) * 100) for candidate, tally in total_votes_per.items()}
-print(percentage_votes)
+# round each percentage to 3 decimal places
+rounded_percents = {candidate: round(perc_vote,3) for candidate, perc_vote in percentage_votes.items()}
+print(rounded_percents)
+
+# create a dataframe? :/ that's pandas which is technically after this homework
+# vote_results_pf = pd.DataFrame{}
 
 
 # Winner of election based on popular vote
 
 
-# # print results to console
-# print('')
-# print('Election Results')
-# print('')
-# print('------------------------------------------')
-# print('')
-# print('Total Votes:')
-# print('')
-# print('------------------------------------------')
-# print('')
-# print('cand1results')
-# print('cand2results')
-# print('cand3results')
-# print('')
-# print('------------------------------------------')
-# print('')
-# print('Winner:<pop.vote_winner>')
-# print('')
-# print('------------------------------------------')
+# print results to console
+print('')
+print('Election Results')
+print('')
+print('------------------------------------------')
+print('')
+print(f'Total Votes: {total_votes}')
+print('')
+print('------------------------------------------')
+print('')
+for candidate, tallied_vote in total_votes_per.items():
+    for candidate1, percentage in percentage_votes.items():
+        print(f'{candidate}: {percentage} ({tallied_vote})')
+print('')
+print('------------------------------------------')
+print('')
+print('Winner:<pop.vote_winner>')
+print('')
+print('------------------------------------------')
 
 # # Export results as text file
 # elect_txt = 'Election_Results.txt'
