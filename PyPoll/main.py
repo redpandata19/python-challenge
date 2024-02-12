@@ -27,9 +27,8 @@ candidate_votes = {candidate: [] for candidate in candidate_list}
 with open(pypoll_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_reader)
-
 # iterate through rows and add votes to the relevant candidate's list in the dictionary
-    for vote in csv_reader:
+    for row in csv_reader:
 # Variables to represent the candidate in column 3 and the Ballot ID in column 1 (zero index)
         vote_id = row[0]
         candidate_value = row[2]
@@ -38,7 +37,7 @@ with open(pypoll_csv) as csv_file:
             candidate_votes[candidate_value].append(vote_id)
 # Count the vote results for each candidate
 for candidate, votes in candidate_votes.items():
-    print(f'{candidate}: {len(vote)} votes')
+    print(f'{candidate}: {len(votes)} votes')
 
 # Calculate percentage of votes per candidate
     # Idea: len each list? Get a total?
