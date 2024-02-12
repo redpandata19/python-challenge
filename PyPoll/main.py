@@ -39,7 +39,11 @@ with open(pypoll_csv) as csv_file:
 total_votes_per = {candidate: len(votes) for candidate, votes in candidate_votes.items()}
 # sum the tallied votes
 total_votes = sum(total_votes_per.values())
-print(total_votes)
+# for each candidate, divide the tallied vote by the total votes * 100 for percentage
+percentage_votes = {candidate: ((tally / total_votes) * 100) for candidate, tally in total_votes_per.items()}
+print(percentage_votes)
+
+
 # Winner of election based on popular vote
 
 
